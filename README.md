@@ -20,7 +20,7 @@ This project demonstrates how a modern Enterprise AI Assistant retrieves informa
 
 The assistant loads the knowledge base, creates chunks, generates embeddings, and builds the FAISS index.
 
-![Enterprise RAG Startup](images/startup_demo.jpg)
+![Enterprise RAG Startup](src/images/startup_demo.jpg)
 
 ---
 
@@ -28,7 +28,7 @@ The assistant loads the knowledge base, creates chunks, generates embeddings, an
 
 The assistant answers questions using semantic search and GPT. When the requested information is unavailable, it responds with **"I don't know."** instead of hallucinating.
 
-![Enterprise RAG Chat](images/chat_demo.jpg)
+![Enterprise RAG Chat](src/images/chat_demo.jpg)
 
 # ✨ Features
 
