@@ -1,5 +1,6 @@
-from pdf_loader import load_pdf
-from chunker import create_chunks
+#from pdf_loader import load_pdf
+#from pdf_manager import PDFManager
+#from chunker import create_chunks
 from embedding import OpenAIEmbeddingService
 from vector_store import Vector_Store
 from llm import LLMService
@@ -7,11 +8,14 @@ from llm import LLMService
 #---------------------------------------------
 # Build Knowledge Base
 #---------------------------------------------
-print("Building knowledge base")
+'''print("Building knowledge base")
 print("--------------------------------------")
-PDF_PATH="Data/NovaTech_Employee_Handbook.pdf"
+#PDF_PATH="Data/NovaTech_Employee_Handbook.pdf"
+DATA_FOLDER="Data"
+pdf_manager=PDFManager(DATA_FOLDER)
 print("Loading PDF.....")
-pages=load_pdf(PDF_PATH)
+#pages=load_pdf(PDF_PATH)
+pages=pdf_manager.load_all_pdfs()
 
 print("Creating Chunks....")
 chunks=create_chunks(pages)
@@ -26,7 +30,23 @@ vs.built_index(embeded_chunks)
 
 print("Knowledge base ready....")
 print("----------------------------------------")
+print()'''
+
+#-----------------------------------------
+#Loading existing knowledgebase
+#-----------------------------------------
+print("Loading Knowledgebase....")
+print("------------------------------------")
+embedding_service=OpenAIEmbeddingService()
+vs=Vector_Store()
+vs.load_index(
+    "indexes/faiss.index",
+    "indexes/metadata.pkl"
+)
+print("Knowledge Base Loaded Successfully!")
+print("--------------------------------------")
 print()
+
 
 #--------------------------------------------
 # Initialize LLM
@@ -57,9 +77,16 @@ while True:
     print(answer)
 
     print("\nSources:")
-
+    shown=set()
     for chunk in results:
-        print(f"- {chunk['source']} (Page {chunk['page']})")
+        source=f"- {chunk['source']} (Page {chunk['page']})"
+
+        if source not in shown:
+            print(f"- {source}")
+            shown.add(source)
+    
+    
+
 
 
 
